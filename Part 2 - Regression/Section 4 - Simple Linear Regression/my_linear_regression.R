@@ -16,3 +16,32 @@ test_set = subset(dataset, split == FALSE)
 
 #fitting over model for simple linear regression.
 regressor = lm(formula = Salary ~ YearsExperience, data = training_set)
+
+#predicting future test results
+y_pred = predict(regressor,newdata = test_set)
+
+#graphical visualization of training test
+#install.packages(ggplot2)
+library(ggplot2)
+
+ggplot() +
+  geom_point(aes(x=training_set$YearsExperience, y=training_set$Salary),
+             colour = 'red')+
+  geom_line(aes(x=training_set$YearsExperience, y=predict(regressor,newdata = training_set)),
+            colour = 'blue')+
+  ggtitle('Salary vs Years of Experience(Training Set)')+
+  xlab('Years of Experience')+
+  ylab('Salary')
+
+#graphical visualization of test set
+#install.packages(ggplot2)
+library(ggplot2)
+
+ggplot() +
+  geom_point(aes(x=test_set$YearsExperience, y=test_set$Salary),
+             colour = 'red')+
+  geom_line(aes(x=training_set$YearsExperience, y=predict(regressor,newdata = training_set)),
+            colour = 'blue')+
+  ggtitle('Salary vs Years of Experience(Training Set)')+
+  xlab('Years of Experience')+
+  ylab('Salary')
