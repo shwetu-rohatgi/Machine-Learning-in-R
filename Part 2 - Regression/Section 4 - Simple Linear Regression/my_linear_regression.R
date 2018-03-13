@@ -6,9 +6,9 @@ dataset = read.csv('Salary_Data.csv')
 #splitting training and testing datasets.
 library(caTools)
 set.seed(123)
-split = sample.split(dataset$YearsExperience, SplitRatio = 2/3)
-training_set = subset(dataset, split == TRUE)
-test_set = subset(dataset, split == FALSE)
+split = sample.split(dataset$Salary, SplitRatio = 2/3) #dependent variable goes as first argument
+training_set = subset(dataset,split == TRUE)
+test_set =  subset(dataset,split == FALSE) 
 
 #feature scaling 
 # training_set[,2:3] = scale(training_set[,2:3])
@@ -23,15 +23,14 @@ y_pred = predict(regressor,newdata = test_set)
 #graphical visualization of training test
 #install.packages(ggplot2)
 library(ggplot2)
-
-ggplot() +
-  geom_point(aes(x=training_set$YearsExperience, y=training_set$Salary),
+ggplot()+
+  geom_point(aes(x = training_set$YearsExperience,y = training_set$Salary),
              colour = 'red')+
-  geom_line(aes(x=training_set$YearsExperience, y=predict(regressor,newdata = training_set)),
-            colour = 'blue')+
-  ggtitle('Salary vs Years of Experience(Training Set)')+
+  geom_line(aes(x = training_set$YearsExperience, y = predict(regressor,newdata = training_set),
+                colour = 'blue'))+
   xlab('Years of Experience')+
-  ylab('Salary')
+  ylab('Salary')+
+  ggtitle('Salary vs Years of Experience (Training Set predictions)')
 
 #graphical visualization of test set
 #install.packages(ggplot2)
