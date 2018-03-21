@@ -24,6 +24,19 @@ regressor = lm(formula = Profit ~ .,  #here ~. takes into account all the possib
 #Making predictions on test set
 y_pred = predict(regressor, newdata = test_set)
 
+# Making a backward elimination model to optimize the results
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend + State,  
+               data = dataset) #take complete data to get insights
+summary(regressor)
+
+regressor = lm(formula = Profit ~ R.D.Spend + Administration + Marketing.Spend,  
+               data = dataset) #take complete data to get insights
+summary(regressor)
+
+regressor = lm(formula = Profit ~ R.D.Spend + Marketing.Spend,  
+               data = dataset) #take complete data to get insights
+summary(regressor)
+
 #Visualizing our predictions 
 library(ggplot2)
 ggplot()+
