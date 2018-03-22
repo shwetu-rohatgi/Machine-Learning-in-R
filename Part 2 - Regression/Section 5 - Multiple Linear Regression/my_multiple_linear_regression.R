@@ -37,13 +37,17 @@ regressor = lm(formula = Profit ~ R.D.Spend + Marketing.Spend,
                data = dataset) #take complete data to get insights
 summary(regressor)
 
+regressor = lm(formula = Profit ~ R.D.Spend,  
+               data = dataset) #take complete data to get insights
+summary(regressor) #summary of final model
+
 #Visualizing our predictions 
 library(ggplot2)
 ggplot()+
   geom_point(aes(x=test_set$R.D.Spend,y=test_set$Profit),
-             colour = "red")+
+             colour = 'red')+
   geom_line(aes(x = training_set$R.D.Spend, y = predict(regressor, newdata = training_set)),
-            colour = "green")+
+            colour = 'green')+
   xlab('R.D.Spend')+
   ylab('Profits')+
   ggtitle('Predicting profits wrt to R.D.Spend')
